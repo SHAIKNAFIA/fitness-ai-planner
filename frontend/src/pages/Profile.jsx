@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 function Profile() {
+
+  const navigate = useNavigate();
 
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -33,9 +36,13 @@ function Profile() {
 
       alert(response.data.message);
 
-    } catch {
+      navigate("/dashboard");
 
-      alert("Failed");
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Failed to save profile");
 
     }
   };
@@ -50,50 +57,103 @@ function Profile() {
         </h1>
 
         <input
+          type="number"
           placeholder="Age"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setAge(e.target.value)}
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setAge(e.target.value)
+          }
         />
 
-        <input
-          placeholder="Gender"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setGender(e.target.value)}
-        />
+        <select
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setGender(e.target.value)
+          }
+        >
+          <option value="">
+            Select Gender
+          </option>
+
+          <option value="Male">
+            Male
+          </option>
+
+          <option value="Female">
+            Female
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+        </select>
 
         <input
+          type="number"
           placeholder="Height (cm)"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setHeight(e.target.value)}
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setHeight(e.target.value)
+          }
         />
 
         <input
+          type="number"
           placeholder="Weight (kg)"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setWeight(e.target.value)}
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setWeight(e.target.value)
+          }
+        />
+
+        <select
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setGoal(e.target.value)
+          }
+        >
+          <option value="">
+            Select Goal
+          </option>
+
+          <option value="Weight Loss">
+            Weight Loss
+          </option>
+
+          <option value="Weight Gain">
+            Weight Gain
+          </option>
+
+          <option value="Muscle Building">
+            Muscle Building
+          </option>
+
+          <option value="Fitness Maintenance">
+            Fitness Maintenance
+          </option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Food Preference (Veg / Non-Veg)"
+          className="w-full border p-3 mb-3 rounded"
+          onChange={(e) =>
+            setFood(e.target.value)
+          }
         />
 
         <input
-          placeholder="Goal"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setGoal(e.target.value)}
-        />
-
-        <input
-          placeholder="Food Preference"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setFood(e.target.value)}
-        />
-
-        <input
-          placeholder="Budget"
-          className="w-full border p-3 mb-3"
-          onChange={(e)=>setBudget(e.target.value)}
+          type="number"
+          placeholder="Daily Food Budget"
+          className="w-full border p-3 mb-4 rounded"
+          onChange={(e) =>
+            setBudget(e.target.value)
+          }
         />
 
         <button
           onClick={saveProfile}
-          className="w-full bg-green-600 text-white p-3 rounded"
+          className="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
         >
           Save Profile
         </button>

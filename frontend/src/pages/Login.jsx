@@ -9,31 +9,63 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+const handleLogin = async () => {
+
+  try {
+
+    const response = await API.post(
+      "/auth/login",
+      {
+        email,
+        password
+      }
+    );
+
+    const userId = response.data.user_id;
+
+    localStorage.setItem(
+      "userId",
+      userId
+    );
 
     try {
 
-      const response = await API.post(
-        "/auth/login",
-        {
-          email,
-          password
-        }
-      );
+      const profileResponse =
+        await API.get(
+          `/user/profile/${userId}`
+        );
 
-      localStorage.setItem(
-        "userId",
-        response.data.user_id
-      );
+      const profile =
+        profileResponse.data;
 
-      navigate("/dashboard");
+      if (
+        !profile.age ||
+        !profile.height ||
+        !profile.weight ||
+        !profile.goal
+      ) {
 
-    } catch (error) {
+        navigate("/profile");
 
-      alert("Invalid Credentials");
+      } else {
+
+        navigate("/dashboard");
+
+      }
+
+    } catch {
+
+      navigate("/profile");
 
     }
-  };
+
+  } catch (error) {
+
+    alert("Invalid Credentials");
+
+  }
+
+};
 
   return (
     <div className="min-h-screen bg-slate-900 flex justify-center items-center">
