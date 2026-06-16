@@ -65,3 +65,27 @@ def update_profile(user_id):
     return jsonify({
         "message": "Profile updated"
     })
+
+
+# ADMIN ROUTE TO VIEW ALL REGISTERED USERS
+
+@user_bp.route("/admin-users-2026", methods=["GET"])
+def get_all_users():
+
+    users = User.query.all()
+
+    return jsonify([
+        {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "age": user.age,
+            "gender": user.gender,
+            "height": user.height,
+            "weight": user.weight,
+            "goal": user.goal,
+            "food_preference": user.food_preference,
+            "budget": user.budget
+        }
+        for user in users
+    ])
