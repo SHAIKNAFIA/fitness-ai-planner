@@ -9,6 +9,7 @@ from routes.user_routes import user_bp
 from routes.workout_routes import workout_bp
 from routes.diet_routes import diet_bp
 from routes.progress_routes import progress_bp
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -57,7 +58,9 @@ def home():
     }
 
 
+
 if __name__ == "__main__":
     app.run(
-        debug=True
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000))
     )
