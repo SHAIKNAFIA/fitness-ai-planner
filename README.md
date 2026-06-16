@@ -295,7 +295,7 @@ GitHub:
 https://github.com/SHAIKNAFIA
 
 LinkedIn:
-(Add LinkedIn Profile Link)
+https://www.linkedin.com/in/nafia-shaik-711b9632b/
 
 ---
 
